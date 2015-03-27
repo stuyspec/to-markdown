@@ -98,15 +98,16 @@ function replacementForNode(node, doc) {
 
     if (canConvertNode(node, converter.filter)) {
       var replacement = converter.replacement;
-      var text;
 
       if (typeof replacement !== 'function') {
         throw '`replacement` needs to be a function that returns a string';
       }
 
-      text = replacement(he.decode(node.innerHTML), node);
+      var string = replacement(he.decode(node.innerHTML), node);
+      var textNode = doc.createTextNode(string);
+      textNode._attributes = node.attributes;
 
-      return doc.createTextNode(text);
+      return textNode;
     }
   }
   return null;
