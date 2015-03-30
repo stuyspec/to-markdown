@@ -20,6 +20,14 @@ test('emphasis', function() {
   equal(toMarkdown('<em id="one" class="cowabunga"></em>'), '', 'We expect empty em tags to be removed');
 });
 
+test('extra-emphasis', function() {
+    equal(toMarkdown('<del>I am deleted</del>'), '~~I am deleted~~', 'We expect <del>I am deleted</del> to be converted to ~~I am deleted~~');
+    equal(toMarkdown('19<sup>th</sup>'), '19^th^', 'We expect 19<sup>th</sup> to be converted to 19^th^');
+    equal(toMarkdown('H<sub>2</sub>O'), 'H~2~O', 'We expect H<sub>2</sub>O to be converted to H~2~O');
+    equal(toMarkdown('<ins>I am inserted</ins>'), '++I am inserted++', 'We expect <ins>I am inserted</ins> to be converted to ++I am inserted++');
+    equal(toMarkdown('<mark>I am marked</mark>'), '==I am marked==', 'We expect <mark>I am marked</mark> to be converted to ==I am marked==');
+})
+
 test('code', function() {
   equal(toMarkdown('<code>print()</code>'), '`print()`', 'We expect inline code tags to be converted to backticks');
   equal(toMarkdown('<code></code>'), '', 'We expect empty code tags to be removed');
